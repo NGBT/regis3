@@ -104,7 +104,11 @@ namespace ngbt.regis3
         /// <param name="env">Helper class that can map $$-escaped strings.</param>
         public void WriteToTheRegistry(RegistryKey registryKey, RegEnvReplace env)
         {
-            string name = env.Map(Name);
+            string name = Name;
+            if (env != null)
+            {
+                name = env.Map(Name);
+            }
             RegistryValueKind kind = MapRegis3KindToNativeKind(Kind);
             if (Value is string)
             {

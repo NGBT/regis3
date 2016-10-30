@@ -207,7 +207,7 @@ namespace ngbt.regis3
                 List<string> path = new List<string>();
 
                 RegKeyEntry k = this;
-                while (k != null)
+                while (true)
                 {
                     if (k.Parent == null)
                     {

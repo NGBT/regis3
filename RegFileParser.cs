@@ -464,10 +464,10 @@ namespace ngbt.regis3
                 {
                     CurrentValue.SetBinaryType(CurrentDataKind, CreateByteArrayFromString(Buffer.ToString()));
                 }
-                catch(Exception e)
+                catch
                 {
                     Console.WriteLine("Hint: closest section is named [{0}]", CurrentKey.Path);
-                    throw e;
+                    throw;
                 }
                 ParserState = ExpectNewline;
             }
