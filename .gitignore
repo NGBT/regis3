@@ -1,0 +1,4 @@
+# git ignore file
+obj/*
+bin/*
+.vs/*
