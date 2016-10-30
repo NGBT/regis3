@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>regis3.dll</id>
+    <version>1.0.0</version>
+    <authors>Gerson Kurz</authors>
+    <owners>NGBT</owners>
+    <projectUrl>http://github.com/NGBT/regis3</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>registry helper functions in C#</description>
+    <releaseNotes>initial release</releaseNotes>
+    <copyright>Copyright 2016 by NGBT</copyright>
+    <tags>Registry Files</tags>
+  </metadata>
+</package>
