@@ -49,6 +49,7 @@ However, what do you do when you don't know the actual file format used? You do 
 
 where `options` is this bitmask:
 
+```csharp
     /// <summary>
     /// Parser options for .REG files
     /// </summary>
@@ -85,7 +86,8 @@ where `options` is this bitmask:
         AllowVariableNamesForNonStringVariables = (1<<3),
 
     }
-    
+```
+
 ## Direct import
 
 In addition to this, you can also import data directly from the registry:
