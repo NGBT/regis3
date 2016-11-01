@@ -45,7 +45,9 @@ For all these three file formats, registry importers exist:
 
 However, what do you do when you don't know the actual file format used? You do this:
 
+```csharp
     var ri = RegFile.CreateImporterFromFile("your filename goes here", options);
+```
 
 where `options` is this bitmask:
 
@@ -102,14 +104,17 @@ In addition to this, you can also import data directly from the registry:
 
 Registry data in memory will be represented by a `RegKeyEntry` object. The idiomatic use from files would be this:
 
+```csharp
     var ri = RegFile.CreateImporterFromFile("your filename goes here", options);
     var rk = ri.Import()
     
     // TODO: treat rk
     ...
+```
 
 The most important data in a RegKeyEntry is defined right at the top:
 
+```csharp
     /// <summary>
     /// This class represents a registry key in memory
     /// </summary>
@@ -134,7 +139,7 @@ The most important data in a RegKeyEntry is defined right at the top:
         /// Values in this key
         /// </summary>
         public readonly Dictionary<string, RegValueEntry> Values = new Dictionary<string, RegValueEntry>();
-
+```
 
 For example,
 
@@ -143,6 +148,7 @@ For example,
 
 Registry values are a bit harder, because they can have different types: 
 
+```csharp
     /// <summary>
     /// This class represents a registry value in a 
     /// </summary>
@@ -162,6 +168,7 @@ Registry values are a bit harder, because they can have different types:
         /// Type of data encoded in this object
         /// </summary>
         public RegValueEntryKind Kind { get; private set; }
+```
 
 So you need to implement logic to treat different types differently (for example, obviously a REG_DWORD is not the same as a REG_SZ)
 
@@ -182,6 +189,7 @@ For all three file formats, registry exporters exist:
 
 All registry exporters implement the same interface:
 
+```csharp
     /// <summary>
     /// This is the export interface supported by all regis3 exporter functions: given a RegKeyEntry, create a file or a string.
     /// </summary>
@@ -203,11 +211,13 @@ All registry exporters implement the same interface:
         /// /// <param name="options">Export options</param>
         void Export(RegKeyEntry key, TextWriter file, RegFileExportOptions options);
     }
+```
 
 ## Exporting registry data to the registry
 
 Sometimes you will want to write the data directly to your local registry. This is **not** done through one of the exporter interfaces, because we don't want to write to a string, or a file: we want to write to the registry. Therefor, the most convenient way is to take a `RegKeyEntry` instance and do this:
 
+```csharp
         /// <summary>
         /// Write the contents of this object back to the registry (possibly recursively)
         /// </summary>
@@ -215,9 +225,11 @@ Sometimes you will want to write the data directly to your local registry. This 
         /// <param name="env">Optional handler for environment variable replacement</param>
         /// <param name="registryView">Type of registry you want to see (32-bit, 64-bit, default).</param>
         public void WriteToTheRegistry(RegistryWriteOptions registryWriteOptions, RegEnvReplace env, RegistryView registryView)
+```
 
 The `RegistryWriteOptions` are straightforward:
 
+```csharp
     /// <summary>
     /// Available options when exporting a RegKeyEntry tree back to the registry
     /// </summary>
@@ -235,11 +247,14 @@ The `RegistryWriteOptions` are straightforward:
         /// </summary>
         AllAccessForEveryone = (1<<1),
     }
+```
 
 The `RegEnvReplace` instance is basically a dictionary that allows you to lookup data on the fly and replace it when writing data back. For example, you can do this
 
+```csharp
 	var rep = new RegEnvReplace()
     rep.Variables["INSTALLDIR"] = @"C:\marusha\somewhere\over\the\rainbow";
+```
 
 Then, if you have a registry string like this:
 
